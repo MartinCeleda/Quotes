@@ -78,6 +78,8 @@ namespace WB0110.Controllers
                 return NotFound();
             }
         }
+        //*Problém s vyhledáním správných věcí. Zeptat se, jak to ozkoušet na postmanovi*
+
 
         //// POST api/<QuoteController/5/tags>
         //// link new tags with quote 5
