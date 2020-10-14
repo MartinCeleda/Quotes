@@ -19,17 +19,20 @@ namespace WB0110.Controllers
         {
             _db = db;
         }
-
+        // GET api/<QuoteController>
+        // get random quote
         [HttpGet]
         public ActionResult<Quote> Get()
         {
             _rand = new Random();
 
-            int max = _db.Quotes.Count();
-            int rnd = _rand.Next(1, max);
-
+            int MaxQuotes = _db.Quotes.Count();
+            int rnd = _rand.Next(1, MaxQuotes);
             return _db.Quotes.Find(rnd);
         }
+
+        // POST api/<QuoteController>
+        // insert new quote (without tags)
         [HttpPost]
         public ActionResult<Quote> Insert([FromBody] Quote value)
         {
@@ -40,9 +43,65 @@ namespace WB0110.Controllers
             else
             {
                 _db.Quotes.Add(value);
-                _db.SaveChangesAsync();
+                _db.SaveChanges();
                 return _db.Quotes.Find(value.Id);
             }
         }
+        // GET api/<QuoteController/5>
+        // get quote with id 5
+        [HttpGet("{id}")]
+        public ActionResult<Quote> Get(int id)
+        {
+            if (_db.Quotes.Contains(new Quote { Id = id }))
+            {
+                return _db.Quotes.Find(id);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        //// DELETE api/<QuoteController>/5
+        //// delete quote with id 5
+        [HttpDelete("{id?}")]
+        public ActionResult<Quote> Delete(int id)
+        {
+            if (_db.Quotes.Contains(new Quote { Id = id }))
+            {
+                _db.Quotes.Remove(_db.Quotes.Find(id));
+                _db.SaveChanges();
+                return Accepted();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        //// POST api/<QuoteController/5/tags>
+        //// link new tags with quote 5
+        //[HttpPost("{id}/tags")]
+        //public ActionResult<IEnumerable<Tag>> InsertTags(int id, [FromBody] IEnumerable<int> tagIds)
+        //{
+
+        //}
+
+        //// DELETE api/<QuoteController/5/tags>
+        //// unlink tags connected with quote 5
+        //[HttpDelete("{id}/tags")]
+        //public ActionResult<IEnumerable<Tag>> DeleteTags(int id, [FromBody] IEnumerable<int> tagIds)
+        //{
+
+        //}
+
+
+        //// GET api/<QuoteController/5/tags>
+        //// get linked tags with quote 5
+        //[HttpGet("{id}/tags")]
+        //public ActionResult<IEnumerable<Tag>> GetTags(int id) 
+        //{ 
+
+        //}
     }
 }

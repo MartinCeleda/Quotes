@@ -10,8 +10,8 @@ using WB0110.Data;
 namespace WB0110.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201014143732_Prvni")]
-    partial class Prvni
+    [Migration("20201014152653_Prva")]
+    partial class Prva
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -244,6 +244,30 @@ namespace WB0110.Migrations
                             Id = 1,
                             Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Text = "Komunismus je rovnoměrné rozdělení bídy"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Text = "Z hlediska vyššího principu mravního vražda na tyranu není zločinem."
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Text = "Historie je lež, na náž jsme se shodli"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Text = "Smažme husitskou válku z naší historie, i zhasne sláva českého národa. Ta jediná doba váží více než ostatní naše dějství, ba více, než celé věky čínské říše."
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Text = "Falšovatelé historie svobodu národa nezachraňují, ale ohrožují."
                         });
                 });
 
@@ -270,6 +294,30 @@ namespace WB0110.Migrations
                             Id = 1,
                             Category = 0,
                             Name = "Třeba Churchil"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Category = 0,
+                            Name = "Jiří Krejčík"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Category = 0,
+                            Name = "Voltaire"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Category = 0,
+                            Name = "Karel Havlíček Borovský"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Category = 0,
+                            Name = "Václav Havel"
                         });
                 });
 

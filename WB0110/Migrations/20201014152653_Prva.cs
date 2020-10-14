@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WB0110.Migrations
 {
-    public partial class Prvni : Migration
+    public partial class Prva : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -207,12 +207,26 @@ namespace WB0110.Migrations
             migrationBuilder.InsertData(
                 table: "Quotes",
                 columns: new[] { "Id", "Date", "Text" },
-                values: new object[] { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Komunismus je rovnoměrné rozdělení bídy" });
+                values: new object[,]
+                {
+                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Komunismus je rovnoměrné rozdělení bídy" },
+                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Z hlediska vyššího principu mravního vražda na tyranu není zločinem." },
+                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Historie je lež, na náž jsme se shodli" },
+                    { 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Smažme husitskou válku z naší historie, i zhasne sláva českého národa. Ta jediná doba váží více než ostatní naše dějství, ba více, než celé věky čínské říše." },
+                    { 5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Falšovatelé historie svobodu národa nezachraňují, ale ohrožují." }
+                });
 
             migrationBuilder.InsertData(
                 table: "Tags",
                 columns: new[] { "Id", "Category", "Name" },
-                values: new object[] { 1, 0, "Třeba Churchil" });
+                values: new object[,]
+                {
+                    { 1, 0, "Třeba Churchil" },
+                    { 2, 0, "Jiří Krejčík" },
+                    { 3, 0, "Voltaire" },
+                    { 4, 0, "Karel Havlíček Borovský" },
+                    { 5, 0, "Václav Havel" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
