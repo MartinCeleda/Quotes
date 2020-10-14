@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WB0110.Data;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,36 +13,36 @@ namespace WB0110.Controllers
     [ApiController]
     public class QuoteController : ControllerBase
     {
-        // GET: api/<QuoteController>
+        public ApplicationDbContext _db { get; set; }
+        private Random _rand;
+        public QuoteController(ApplicationDbContext db)
+        {
+            _db = db;
+        }
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ActionResult<Quote> Get()
         {
-            return new string[] { "value1", "value2" };
-        }
+            _rand = new Random();
 
-        // GET api/<QuoteController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+            int max = _db.Quotes.Count();
+            int rnd = _rand.Next(1, max);
 
-        // POST api/<QuoteController>
+            return _db.Quotes.Find(rnd);
+        }
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<Quote> Insert([FromBody] Quote value)
         {
-        }
-
-        // PUT api/<QuoteController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<QuoteController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            if (value == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                _db.Quotes.Add(value);
+                _db.SaveChangesAsync();
+                return _db.Quotes.Find(value.Id);
+            }
         }
     }
 }

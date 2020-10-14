@@ -22,10 +22,13 @@ namespace WB0110.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<TagQuote>().HasOne(tg => tg.Tag).WithMany(t => t.Quotes).HasForeignKey(t => t.TagId).OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<TagQuote>().HasKey(tg => new { tg.TagId, tg.QuoteId });
-            modelBuilder.Entity<Quote>().HasData(new Quote { ID = 1, Text = "Komunismus je rovnoměrné rozdělení bídy"});
-            modelBuilder.Entity<Tag>().HasData(new Tag { ID = 1, Category = Category.author, Name = "Třeba Churchil"});
+            modelBuilder.Entity<Quote>().HasData(new Quote { Id = 1, Text = "Komunismus je rovnoměrné rozdělení bídy"});
+            modelBuilder.Entity<Tag>().HasData(new Tag { Id = 1, Category = Category.author, Name = "Třeba Churchil"});
+
+
+            modelBuilder.Entity<TagQuote>().HasKey(tq => new { tq.TagId, tq.QuoteId });
+            modelBuilder.Entity<TagQuote>().HasOne(tq => tq.Tag).WithMany(t => t.TagQuotes).HasForeignKey(t => t.TagId);
+            modelBuilder.Entity<TagQuote>().HasOne(tq => tq.Quote).WithMany(q => q.TagQuotes).HasForeignKey(q => q.QuoteId);
         }
     }
 }

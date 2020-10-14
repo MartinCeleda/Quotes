@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WB0110.Data;
 
-namespace WB0110.Data.Migrations
+namespace WB0110.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201014143732_Prvni")]
+    partial class Prvni
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -221,7 +223,7 @@ namespace WB0110.Data.Migrations
 
             modelBuilder.Entity("WB0110.Data.Quote", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -232,14 +234,14 @@ namespace WB0110.Data.Migrations
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("Quotes");
 
                     b.HasData(
                         new
                         {
-                            ID = 1,
+                            Id = 1,
                             Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Text = "Komunismus je rovnoměrné rozdělení bídy"
                         });
@@ -247,7 +249,7 @@ namespace WB0110.Data.Migrations
 
             modelBuilder.Entity("WB0110.Data.Tag", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -258,14 +260,14 @@ namespace WB0110.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("Tags");
 
                     b.HasData(
                         new
                         {
-                            ID = 1,
+                            Id = 1,
                             Category = 0,
                             Name = "Třeba Churchil"
                         });
@@ -340,13 +342,13 @@ namespace WB0110.Data.Migrations
             modelBuilder.Entity("WB0110.Data.TagQuote", b =>
                 {
                     b.HasOne("WB0110.Data.Quote", "Quote")
-                        .WithMany("Tags")
+                        .WithMany("TagQuotes")
                         .HasForeignKey("QuoteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WB0110.Data.Tag", "Tag")
-                        .WithMany("Quotes")
+                        .WithMany("TagQuotes")
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
