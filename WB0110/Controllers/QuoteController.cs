@@ -81,29 +81,70 @@ namespace WB0110.Controllers
         //*Problém s vyhledáním správných věcí. Zeptat se, jak to ozkoušet na postmanovi*
 
 
-        //// POST api/<QuoteController/5/tags>
-        //// link new tags with quote 5
-        //[HttpPost("{id}/tags")]
-        //public ActionResult<IEnumerable<Tag>> InsertTags(int id, [FromBody] IEnumerable<int> tagIds)
-        //{
+        // POST api/<QuoteController/5/tags>
+        // link new tags with quote 5
+        [HttpPost("{id}/tags")]
+        public ActionResult<IEnumerable<Tag>> InsertTags(int id, [FromBody] IEnumerable<int> tagIds)
+        {
+            if (_db.Quotes.Contains(new Quote { Id = id }))
+            {
+                var quote = _db.Quotes.Find(id);
+                foreach (var item in tagIds)
+                {
+                    var tag = _db.Tags.Find(item);
+                    _db.TagQuotes.Add(new TagQuote { Tag = tag, Quote = quote });
+                }
+                _db.SaveChanges();
+                return Accepted();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
 
-        //}
+        // DELETE api/<QuoteController/5/tags>
+        // unlink tags connected with quote 5
+        [HttpDelete("{id}/tags")]
+        public ActionResult<IEnumerable<Tag>> DeleteTags(int id, [FromBody] IEnumerable<int> tagIds)
+        {
+            if (_db.Quotes.Contains(new Quote { Id = id }))
+            {
 
-        //// DELETE api/<QuoteController/5/tags>
-        //// unlink tags connected with quote 5
-        //[HttpDelete("{id}/tags")]
-        //public ActionResult<IEnumerable<Tag>> DeleteTags(int id, [FromBody] IEnumerable<int> tagIds)
-        //{
+                foreach (var item in tagIds)
+                {
+                    var tag = _db.Tags.Find(item);
+                    _db.TagQuotes.Remove(_db.TagQuotes.Where(x => x.QuoteId == id).SingleOrDefault(x => x.Tag == tag));
+                }
+                _db.SaveChanges();
+                return Accepted();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
 
-        //}
 
-
-        //// GET api/<QuoteController/5/tags>
-        //// get linked tags with quote 5
-        //[HttpGet("{id}/tags")]
-        //public ActionResult<IEnumerable<Tag>> GetTags(int id) 
-        //{ 
-
-        //}
+        // GET api/<QuoteController/5/tags>
+        // get linked tags with quote 5
+        [HttpGet("{id}/tags")]
+        public ActionResult<IEnumerable<Tag>> GetTags(int id)
+        {
+            if (_db.Quotes.Contains(new Quote { Id = id }))
+            {
+                var quote = _db.Quotes.Include(x => x.TagQuotes).SingleOrDefault(x => x.Id == id);
+                List<Tag> tags = new List<Tag>();
+                foreach (var item in quote.TagQuotes)
+                {
+                    tags.Add(item.Tag);
+                }
+                return tags;
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
     }
 }
