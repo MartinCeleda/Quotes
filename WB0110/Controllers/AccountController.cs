@@ -11,8 +11,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using WB0110.InputModels;
 using WB0110.Models;
+using WB0110.Data;
 
 namespace WB0110.Controllers
 {
